@@ -9,7 +9,6 @@ from autogpt.ai_functions import evaluate_code, improve_code, write_tests
 from autogpt.browse import scrape_links, scrape_text, summarize_text
 from autogpt.execute_code import execute_python_file, execute_shell
 from autogpt.file_operations import (
-    append_to_file,
     delete_file,
     read_file,
     search_files,
@@ -96,8 +95,6 @@ def execute_command(command_name, arguments):
             return read_file(arguments["file"])
         elif command_name == "write_to_file":
             return write_to_file(arguments["file"], arguments["text"])
-        elif command_name == "append_to_file":
-            return append_to_file(arguments["file"], arguments["text"])
         elif command_name == "delete_file":
             return delete_file(arguments["file"])
         elif command_name == "search_files":

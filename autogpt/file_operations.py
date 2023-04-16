@@ -95,20 +95,10 @@ def write_to_file(filename, text):
         directory = os.path.dirname(filepath)
         if not os.path.exists(directory):
             os.makedirs(directory)
-        with open(filepath, "x", encoding="utf-8") as f:
+        with open(filepath, "a", encoding="utf-8") as f:
             f.write(text)
+            f.write("\n")
         return "File written to successfully."
-    except Exception as e:
-        return "Error: " + str(e)
-
-
-def append_to_file(filename, text):
-    """Append text to a file"""
-    try:
-        filepath = safe_join(working_directory, filename)
-        with open(filepath, "a") as f:
-            f.write(text)
-        return "Text appended successfully."
     except Exception as e:
         return "Error: " + str(e)
 

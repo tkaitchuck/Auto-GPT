@@ -48,7 +48,6 @@ def get_prompt() -> str:
         ("Delete Sub Agent", "delete_agent", {"key": "<key>"}),
         ("Write to file", "write_to_file", {"file": "<file>", "text": "<text>"}),
         ("Read file", "read_file", {"file": "<file>"}),
-        ("Append to file", "append_to_file", {"file": "<file>", "text": "<text>"}),
         ("Delete file", "delete_file", {"file": "<file>"}),
         ("Search Files", "search_files", {"directory": "<directory>"}),
         ("Evaluate Code", "evaluate_code", {"code": "<full_code_string>"}),
