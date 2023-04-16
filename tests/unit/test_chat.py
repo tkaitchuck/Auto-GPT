@@ -23,7 +23,7 @@ class TestChat(unittest.TestCase):
         # Mock the time.strftime function to return a fixed value
         mock_strftime.return_value = "Sat Apr 15 00:00:00 2023"
         # Arrange
-        prompt = ""
+        prompt = [""]
         relevant_memory = ""
         full_message_history = []
         model = "gpt-3.5-turbo-0301"
@@ -53,7 +53,7 @@ class TestChat(unittest.TestCase):
     # Tests that the function successfully generates a current_context given valid inputs.
     def test_generate_context_valid_inputs(self):
         # Given
-        prompt = "What is your favorite color?"
+        prompt = ["What is your favorite color?"]
         relevant_memory = "You once painted your room blue."
         full_message_history = [
             create_chat_message("user", "Hi there!"),

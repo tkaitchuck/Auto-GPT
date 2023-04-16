@@ -25,21 +25,21 @@ def create_chat_message(role, content):
 
 
 def generate_context(prompt, relevant_memory, full_message_history, model):
-    current_context = [
-        create_chat_message("system", prompt),
-        create_chat_message(
-            "system", f"The current time and date is {time.strftime('%c')}"
-        ),
-        create_chat_message(
-            "system",
-            f"This reminds you of these events from your past:\n{relevant_memory}\n\n",
-        ),
-    ]
+    current_context = []
+    for line in prompt:
+        current_context.append(create_chat_message("system", line))
+    current_context.append(
+        create_chat_message("system", f"The current time and date is {time.strftime('%c')}")
+    )
+    current_context.append(
+        create_chat_message("system", f"Command history:\n{relevant_memory}\n\n")
+    )
 
     # Add messages from the full message history until we reach the token limit
     next_message_to_add_index = len(full_message_history) - 1
     insertion_index = len(current_context)
     # Count the currently used tokens
+    #logger.debug(f"Current context: {current_context}")
     current_tokens_used = token_counter.count_message_tokens(current_context, model)
     return (
         next_message_to_add_index,
@@ -62,7 +62,7 @@ def chat_with_ai(
                 message history, and permanent memory.
 
             Args:
-                prompt (str): The prompt explaining the rules to the AI.
+                prompt (list): The prompt instructions explaining the rules to the AI.
                 user_input (str): The input from the user.
                 full_message_history (list): The list of all messages sent between the
                     user and the AI.
@@ -86,7 +86,7 @@ def chat_with_ai(
             )
 
             logger.debug(f"Memory Stats: {permanent_memory.get_stats()}")
-
+            logger.debug(f"Prompt: {prompt}")
             (
                 next_message_to_add_index,
                 current_tokens_used,
@@ -148,10 +148,10 @@ def chat_with_ai(
             logger.debug("------------ CONTEXT SENT TO AI ---------------")
             for message in current_context:
                 # Skip printing the prompt
-                if message["role"] == "system" and message["content"] == prompt:
-                    continue
-                logger.debug(f"{message['role'].capitalize()}: {message['content']}")
-                logger.debug("")
+                #if message["role"] == "system" and message["content"] == prompt:
+                #    continue
+                #logger.debug(f"{message['role'].capitalize()}: {message['content']}")
+                logger.debug(str(message) + "\n")
             logger.debug("----------- END OF CONTEXT ----------------")
 
             # TODO: use a model defined elsewhere, so that model can contain

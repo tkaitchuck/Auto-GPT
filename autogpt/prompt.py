@@ -10,13 +10,13 @@ from autogpt.utils import clean_input
 CFG = Config()
 
 
-def get_prompt() -> str:
+def get_prompt() -> list[str]:
     """
-    This function generates a prompt string that includes various constraints,
+    This function generates prompt strings that includes various constraints,
         commands, resources, and performance evaluations.
 
     Returns:
-        str: The generated prompt string.
+        list[str]: The generated prompt strings.
     """
 
     # Initialize the Config object
@@ -144,7 +144,7 @@ def get_prompt() -> str:
     )
 
     # Generate the prompt string
-    return prompt_generator.generate_prompt_string()
+    return prompt_generator.generate_prompt_strings()
 
 
 def construct_prompt() -> str:

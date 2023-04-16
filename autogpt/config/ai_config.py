@@ -96,25 +96,23 @@ class AIConfig:
             None
 
         Returns:
-            full_prompt (str): A string containing the initial prompt for the user
+            full_prompt (list): A list of strings containing the initial prompt for the user
               including the ai_name, ai_role and ai_goals.
         """
 
-        prompt_start = (
-            "Your decisions must always be made independently without"
-            " seeking user assistance. Play to your strengths as an LLM and pursue"
-            " simple strategies with no legal complications."
-            ""
-        )
+        full_prompt = [
+            "Welcome to GPT shell an JSON-based interactive enviroment which allows languages models to complete taks autonomously."
+        ]
 
         from autogpt.prompt import get_prompt
 
         # Construct full prompt
-        full_prompt = (
-            f"You are {self.ai_name}, {self.ai_role}\n{prompt_start}\n\nGOALS:\n\n"
-        )
-        for i, goal in enumerate(self.ai_goals):
-            full_prompt += f"{i+1}. {goal}\n"
+        full_prompt.append(f"Your name is {self.ai_name}, and your role is {self.ai_role}.\n\n")
 
-        full_prompt += f"\n\n{get_prompt()}"
+        goals = ""
+        for i, goal in enumerate(self.ai_goals):
+            goals += f"{i+1}. {goal}\n"
+        full_prompt.append(f"Your goals are:\n {goals}\n\n")
+
+        full_prompt += get_prompt()
         return full_prompt

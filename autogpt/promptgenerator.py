@@ -116,7 +116,7 @@ class PromptGenerator:
         else:
             return "\n".join(f"{i+1}. {item}" for i, item in enumerate(items))
 
-    def generate_prompt_string(self) -> str:
+    def generate_prompt_strings(self) -> str:
         """
         Generate a prompt string based on the constraints, commands, resources,
             and performance evaluations.
@@ -125,14 +125,10 @@ class PromptGenerator:
             str: The generated prompt string.
         """
         formatted_response_format = json.dumps(self.response_format, indent=4)
-        return (
-            f"Constraints:\n{self._generate_numbered_list(self.constraints)}\n\n"
-            "Commands:\n"
-            f"{self._generate_numbered_list(self.commands, item_type='command')}\n\n"
-            f"Resources:\n{self._generate_numbered_list(self.resources)}\n\n"
-            "Performance Evaluation:\n"
-            f"{self._generate_numbered_list(self.performance_evaluation)}\n\n"
-            "You should only respond in JSON format as described below \nResponse"
-            f" Format: \n{formatted_response_format} \nEnsure the response can be"
-            " parsed by Python json.loads"
-        )
+        return [
+            f"Constraints:\n{self._generate_numbered_list(self.constraints)}\n\n",
+            f"Commands:\n {self._generate_numbered_list(self.commands, item_type='command')}\n\n",
+            f"Resources:\n{self._generate_numbered_list(self.resources)}\n\n",
+            f"Performance Evaluation:\n{self._generate_numbered_list(self.performance_evaluation)}\n\n",
+            f"You should only respond in JSON format as described below \nResponse format: \n{formatted_response_format} \nEnsure the response can be parsed by Python json.loads",
+        ]

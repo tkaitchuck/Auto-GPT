@@ -58,9 +58,9 @@ class TestPromptGenerator(TestCase):
         self.generator.add_performance_evaluation(evaluation)
         self.assertIn(evaluation, self.generator.performance_evaluation)
 
-    def test_generate_prompt_string(self):
+    def test_generate_prompt_strings(self):
         """
-        Test if the generate_prompt_string() method generates a prompt string with all the added
+        Test if the generate_prompt_strings() method generates a prompt string with all the added
         constraints, commands, resources, and evaluations.
         """
         # Define the test data
@@ -93,7 +93,7 @@ class TestPromptGenerator(TestCase):
             self.generator.add_performance_evaluation(evaluation)
 
         # Generate the prompt string and verify its correctness
-        prompt_string = self.generator.generate_prompt_string()
+        prompt_string = str(self.generator.generate_prompt_strings())
         self.assertIsNotNone(prompt_string)
 
         # Check if all constraints, commands, resources, and evaluations are present in the prompt string
