@@ -1,6 +1,7 @@
 """ A module for generating custom prompt strings."""
 from __future__ import annotations
 
+import json
 from typing import Any
 
 
@@ -19,6 +20,16 @@ class PromptGenerator:
         self.commands = []
         self.resources = []
         self.performance_evaluation = []
+        self.response_format = {
+            "thoughts": {
+                "text": "thought",
+                "reasoning": "reasoning",
+                "plan": "- short bulleted\n- list that conveys\n- long-term plan",
+                "criticism": "constructive self-criticism",
+                "speak": "thoughts summary to say to user",
+            },
+            "command": {"name": "command name", "args": {"arg name": "value"}},
+        }
 
     def add_constraint(self, constraint: str) -> None:
         """
@@ -113,9 +124,11 @@ class PromptGenerator:
         Returns:
             str: The generated prompt string.
         """
+        formatted_response_format = json.dumps(self.response_format, indent=4)
         return [
             f"Constraints:\n{self._generate_numbered_list(self.constraints)}\n\n",
             f"Commands:\n {self._generate_numbered_list(self.commands, item_type='command')}\n\n",
             f"Resources:\n{self._generate_numbered_list(self.resources)}\n\n",
             f"Performance Evaluation:\n{self._generate_numbered_list(self.performance_evaluation)}\n\n",
+            f"You should only respond in JSON format as described below \nResponse format: \n{formatted_response_format} \nEnsure the response can be parsed by Python json.loads",
         ]

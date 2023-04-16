@@ -163,6 +163,7 @@ def chat_with_ai(
             )
 
             # Update full message history
+            full_message_history.append(create_chat_message("user", user_input))
             full_message_history.append(
                 create_chat_message("assistant", assistant_reply)
             )
