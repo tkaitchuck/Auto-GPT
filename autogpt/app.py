@@ -123,7 +123,6 @@ def execute_command(command_name: str, arguments):
             key = CFG.google_api_key
             if key and key.strip() and key != "your-google-api-key":
                 google_result = google_official_search(arguments["input"])
-                return google_result
             else:
                 google_result = google_search(arguments["input"])
 
@@ -133,7 +132,7 @@ def execute_command(command_name: str, arguments):
             else:
                 safe_message = google_result.encode('utf-8', 'ignore')
 
-            return str(safe_message) + " To browse these, pass the url of the desired site to the browse_website command."
+            return "Select the url you wish and pass it to the browse_website command: " + str(safe_message)
         elif command_name == "memory_add":
             return memory.add(arguments["string"])
         elif command_name == "start_agent":
