@@ -145,7 +145,7 @@ def get_datetime():
     )
 
 
-def google_search(query, num_results=8):
+def google_search(query, num_results=5):
     """Return the results of a google search"""
     search_results = []
     if not query:
@@ -157,7 +157,7 @@ def google_search(query, num_results=8):
     return json.dumps(search_results, ensure_ascii=False, indent=4)
 
 
-def google_official_search(query, num_results=8):
+def google_official_search(query, num_results=5):
     """Return the results of a google search using the official Google API"""
     import json
 
@@ -183,7 +183,7 @@ def google_official_search(query, num_results=8):
         search_results = result.get("items", [])
 
         # Create a list of only the URLs from the search results
-        search_results_links = [item["link"] for item in search_results]
+        search_results_links = [(item["snippet"], item["link"]) for item in search_results]
 
     except HttpError as e:
         # Handle errors in the API call

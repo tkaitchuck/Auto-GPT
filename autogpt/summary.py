@@ -20,7 +20,6 @@ def summarize_text(driver, text, question):
         summary = create_chat_completion(
             model="gpt-3.5-turbo",
             messages=messages,
-            max_tokens=1000,
         )
         summaries.append(summary)
 
@@ -32,11 +31,10 @@ def summarize_text(driver, text, question):
     return create_chat_completion(
         model="gpt-3.5-turbo",
         messages=messages,
-        max_tokens=1000,
     )
 
 
-def split_text(text, max_length=8192):
+def split_text(text, max_length=5000):
     paragraphs = text.split("\n")
     current_length = 0
     current_chunk = []
@@ -58,8 +56,8 @@ def create_message(chunk, question):
     return {
         "role": "user",
         "content": f'"""{chunk}""" Using the above text, please answer the following'
-        f' question: "{question}" -- if the question cannot be answered using the text,'
-        " please summarize the text.",
+        f' question in as much detail as possible: "{question}" -- (or if the answer is not in the text,'
+        " say so and provide a short summary.)",
     }
 
 
