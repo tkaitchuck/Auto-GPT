@@ -32,7 +32,7 @@ def generate_context(prompt, relevant_memory, full_message_history, model):
         ),
         create_chat_message(
             "system",
-            f"This reminds you of these events from your past:\n{relevant_memory}\n\n",
+            f"Prior messages:\n{relevant_memory}\n\n",
         ),
     ]
 

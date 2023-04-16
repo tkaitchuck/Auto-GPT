@@ -10,20 +10,20 @@ cfg = Config()
 
 JSON_SCHEMA = """
 {
+    "thoughts":
+    {
+        "text": "thought",
+        "reasoning": "reasoning",
+        "criticism": "constructive self-criticism",
+        "plan": "what needs to be done next",
+        "speak": "thoughts summary to say to user"
+    }
     "command": {
         "name": "command name",
         "args": {
             "arg name": "value"
         }
     },
-    "thoughts":
-    {
-        "text": "thought",
-        "reasoning": "reasoning",
-        "plan": "- short bulleted\n- list that conveys\n- long-term plan",
-        "criticism": "constructive self-criticism",
-        "speak": "thoughts summary to say to user"
-    }
 }
 """
 

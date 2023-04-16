@@ -15,8 +15,7 @@ def get_prompt() -> str:
 
     # Add constraints to the PromptGenerator object
     prompt_generator.add_constraint(
-        "~4000 word limit for short term memory. Your short term memory is short, so"
-        " immediately save important information to files."
+        "Your memory is extremely limited. So immediately save important information to files."
     )
     prompt_generator.add_constraint(
         "If you are unsure how you previously did something or want to recall past"
@@ -36,17 +35,17 @@ def get_prompt() -> str:
             {"url": "<url>", "question": "<what_you_want_to_find_on_website>"},
         ),
         (
-            "Start GPT Agent",
+            "Start Sub Agent",
             "start_agent",
             {"name": "<name>", "task": "<short_task_desc>", "prompt": "<prompt>"},
         ),
         (
-            "Message GPT Agent",
+            "Message Sub Agent",
             "message_agent",
             {"key": "<key>", "message": "<message>"},
         ),
-        ("List GPT Agents", "list_agents", {}),
-        ("Delete GPT Agent", "delete_agent", {"key": "<key>"}),
+        ("List Sub Agents", "list_agents", {}),
+        ("Delete Sub Agent", "delete_agent", {"key": "<key>"}),
         ("Write to file", "write_to_file", {"file": "<file>", "text": "<text>"}),
         ("Read file", "read_file", {"file": "<file>"}),
         ("Append to file", "append_to_file", {"file": "<file>", "text": "<text>"}),

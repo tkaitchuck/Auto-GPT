@@ -20,8 +20,8 @@ class PromptGenerator:
             "thoughts": {
                 "text": "thought",
                 "reasoning": "reasoning",
-                "plan": "- short bulleted\n- list that conveys\n- long-term plan",
                 "criticism": "constructive self-criticism",
+                "plan": "What needs to be done next",
                 "speak": "thoughts summary to say to user",
             },
             "command": {"name": "command name", "args": {"arg name": "value"}},
