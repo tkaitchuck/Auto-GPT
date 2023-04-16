@@ -20,7 +20,7 @@ def summarize_text(driver, text, question):
         summary = create_chat_completion(
             model="gpt-3.5-turbo",
             messages=messages,
-            max_tokens=300,
+            max_tokens=1000,
         )
         summaries.append(summary)
 
@@ -32,7 +32,7 @@ def summarize_text(driver, text, question):
     return create_chat_completion(
         model="gpt-3.5-turbo",
         messages=messages,
-        max_tokens=300,
+        max_tokens=1000,
     )
 
 
