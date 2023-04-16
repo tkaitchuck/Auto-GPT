@@ -63,6 +63,13 @@ def list_agents():
     # Return a list of agent keys and their tasks
     return [(key, task) for key, (task, _, _) in agents.items()]
 
+def get_agent_names():
+    """Return a list of the names of all agents"""
+    global agents
+
+    # Return a list of agent keys
+    return [key for key, (_, _, _) in agents.items()]
+
 
 def delete_agent(key):
     """Delete an agent and return True if successful, False otherwise"""

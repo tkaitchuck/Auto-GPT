@@ -240,7 +240,7 @@ def start_agent(name, task, prompt, model=cfg.fast_llm_model):
     # Assign task (prompt), get response
     agent_response = agents.message_agent(key, prompt)
 
-    return f"Agent {name} created with key {key}. First response: {agent_response}"
+    return f"Agent {name} created with key {key}. First response:\n {agent_response}"
 
 
 def message_agent(key, message):

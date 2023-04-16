@@ -6,6 +6,7 @@ from autogpt import token_counter
 from autogpt.config import Config
 from autogpt.llm_utils import create_chat_completion
 from autogpt.logger import logger
+from autogpt.agent_manager import get_agent_names
 
 cfg = Config()
 
@@ -34,6 +35,10 @@ def generate_context(prompt, relevant_memory, full_message_history, model):
             "system",
             f"Prior messages:\n{relevant_memory}\n\n",
         ),
+        create_chat_message(
+            "system", f"Agents currently running are {get_agent_names()}"
+        ),
+
     ]
 
     # Add messages from the full message history until we reach the token limit

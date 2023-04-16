@@ -15,7 +15,7 @@ def get_prompt() -> str:
 
     # Add constraints to the PromptGenerator object
     prompt_generator.add_constraint(
-        "Your memory is extremely limited. So immediately save important information to files."
+        "Context is extremely limited. So it is recomended to spawn agents for subtasks with more than one step and store data in files, and create agents to currate files."
     )
     prompt_generator.add_constraint(
         "If you are unsure how you previously did something or want to recall past"
@@ -82,7 +82,7 @@ def get_prompt() -> str:
     )
     prompt_generator.add_resource("Long Term memory management.")
     prompt_generator.add_resource(
-        "GPT-3.5 powered Agents for delegation of simple tasks."
+        "GPT-3.5 powered Agents for delegation of tasks."
     )
     prompt_generator.add_resource("File output.")
 

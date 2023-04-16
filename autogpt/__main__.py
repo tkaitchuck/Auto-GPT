@@ -373,7 +373,9 @@ def main():
     logger.set_level(logging.DEBUG if cfg.debug_mode else logging.INFO)
     ai_name = ""
     prompt = construct_prompt()
-    # print(prompt)
+    logger.debug("------------ PROMPT ---------------");
+    logger.debug(prompt);
+    logger.debug("------------ END OF PROMPT ---------------");
     # Initialize variables
     full_message_history = []
     next_action_count = 0
