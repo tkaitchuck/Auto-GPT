@@ -9,6 +9,7 @@ from autogpt.logs import logger, print_assistant_thoughts
 from autogpt.speech import say_text
 from autogpt.spinner import Spinner
 from autogpt.utils import clean_input
+import json
 
 
 class Agent:
@@ -21,7 +22,6 @@ class Agent:
         next_action_count: The number of actions to execute.
         prompt: The prompt to use.
         user_input: The user input.
-
     """
 
     def __init__(
@@ -31,14 +31,25 @@ class Agent:
         full_message_history,
         next_action_count,
         prompt,
-        user_input,
     ):
         self.ai_name = ai_name
         self.memory = memory
         self.full_message_history = full_message_history
         self.next_action_count = next_action_count
         self.prompt = prompt
-        self.user_input = user_input
+        self.user_input = ""
+        format = json.dumps({
+            "thoughts": {
+                "text": "Where you are currently",
+                "reasoning": "Your thought process",
+                "speak": "What you are doing now",
+                "criticism": "critiques to help with this sort of task",
+                "plan": "Notes for your future self",
+            },
+            "command": {"name": "command name", "args": {"arg name": "value"}},
+        }, indent=4)
+        self.format_prompt = f"Determine which command you wish to run, and respond with a JSON message using this schema:\n {format}"
+
 
     def start_interaction_loop(self):
         # Interaction Loop
@@ -63,7 +74,7 @@ class Agent:
             with Spinner("Thinking... "):
                 assistant_reply = chat_with_ai(
                     self.prompt,
-                    self.user_input,
+                    self.format_prompt,
                     self.full_message_history,
                     self.memory,
                     cfg.fast_token_limit,
@@ -106,14 +117,14 @@ class Agent:
                         Fore.MAGENTA + "Input:" + Style.RESET_ALL
                     )
                     if console_input.lower().rstrip() == "y":
-                        self.user_input = "GENERATE NEXT COMMAND JSON"
+                        self.user_input = "y"
                         break
                     elif console_input.lower().startswith("y -"):
                         try:
                             self.next_action_count = abs(
                                 int(console_input.split(" ")[1])
                             )
-                            self.user_input = "GENERATE NEXT COMMAND JSON"
+                            self.user_input = "y"
                         except ValueError:
                             print(
                                 "Invalid input format. Please enter 'y -n' where n is"
@@ -129,7 +140,7 @@ class Agent:
                         command_name = "human_feedback"
                         break
 
-                if self.user_input == "GENERATE NEXT COMMAND JSON":
+                if self.user_input == "y":
                     logger.typewriter_log(
                         "-=-=-=-=-=-=-= COMMAND AUTHORISED BY USER -=-=-=-=-=-=-=",
                         Fore.MAGENTA,
@@ -165,7 +176,6 @@ class Agent:
             memory_to_add = (
                 f"Assistant Reply: {assistant_reply} "
                 f"\nResult: {result} "
-                f"\nHuman Feedback: {self.user_input} "
             )
 
             self.memory.add(memory_to_add)

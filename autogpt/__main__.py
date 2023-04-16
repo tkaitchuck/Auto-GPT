@@ -26,11 +26,7 @@ def main() -> None:
     # Initialize variables
     full_message_history = []
     next_action_count = 0
-    # Make a constant:
-    user_input = (
-        "Determine which next command to use, and respond using the"
-        " format specified above:"
-    )
+
     # Initialize memory and make sure it is empty.
     # this is particularly important for indexing and referencing pinecone memory
     memory = get_memory(cfg, init=True)
@@ -44,7 +40,6 @@ def main() -> None:
         full_message_history=full_message_history,
         next_action_count=next_action_count,
         prompt=prompt,
-        user_input=user_input,
     )
     agent.start_interaction_loop()
 
